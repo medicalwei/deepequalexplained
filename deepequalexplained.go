@@ -149,12 +149,14 @@ func deepValueEqual(v1, v2 reflect.Value, visited map[visit]bool, depth int) err
 		// Can't do better than this:
 		return fmt.Errorf(" has different func")
 	default:
-		// Resort to reflect's own deep equal.
+		// Trying to compare between two values
 		if v1.Kind() == reflect.Float64 && math.IsNaN(v1.Float()) {
 			return fmt.Errorf(" in x is NaN float")
 		} else if v2.Kind() == reflect.Float64 && math.IsNaN(v2.Float()) {
 			return fmt.Errorf(" in y is NaN float")
-		} else if fmt.Sprintf("%T %v", v1, v1) != fmt.Sprintf("%T %v", v2, v2) {
+		} else if fmt.Sprintf("%T", v1) != fmt.Sprintf("%T", v2) {
+			return fmt.Errorf(" has different types, where in x is %T but in y is %T", v1, v2)
+		} else if fmt.Sprintf("%v", v1) != fmt.Sprintf("%v", v2) {
 			return fmt.Errorf(" are not equal, where in x is %v but in y is %v", v1, v2)
 		}
 		return nil
