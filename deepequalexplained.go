@@ -30,7 +30,7 @@ func deepValueEqual(v1, v2 reflect.Value, visited map[visit]bool, depth int) err
 		}
 	}
 	if v1.Type() != v2.Type() {
-		return fmt.Errorf(" has different types")
+		return fmt.Errorf(" has different types, where in x is %v but in y is %v", v1.Type().Name(), v2.Type().Name())
 	}
 
 	hard := func(k reflect.Kind) bool {
@@ -177,7 +177,7 @@ func DeepEqualExplained(x, y interface{}) error {
 	v1 := reflect.ValueOf(x)
 	v2 := reflect.ValueOf(y)
 	if v1.Type() != v2.Type() {
-		return fmt.Errorf("x and y has different type")
+		return fmt.Errorf(" has different types, where in x is %v but in y is %v", v1.Type().Name(), v2.Type().Name())
 	}
 	if err := deepValueEqual(v1, v2, make(map[visit]bool), 0); err != nil {
 		return fmt.Errorf("values%s", err.Error())
