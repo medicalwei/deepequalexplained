@@ -177,7 +177,7 @@ func DeepEqualExplained(x, y interface{}) error {
 	v1 := reflect.ValueOf(x)
 	v2 := reflect.ValueOf(y)
 	if v1.Type() != v2.Type() {
-		return fmt.Errorf("values have different types, where in x is %v but in y is %v", v1.Type().Name(), v2.Type().Name())
+		return fmt.Errorf("values have different types, where in x is %v but in y is %v", v1.Type().String(), v2.Type().String())
 	}
 	if err := deepValueEqual(v1, v2, make(map[visit]bool), 0); err != nil {
 		return fmt.Errorf("values%s", err.Error())
