@@ -155,7 +155,7 @@ func deepValueEqual(v1, v2 reflect.Value, visited map[visit]bool, depth int) err
 		} else if v2.Kind() == reflect.Float64 && math.IsNaN(v2.Float()) {
 			return fmt.Errorf(" in y is NaN float")
 		} else if fmt.Sprintf("%T", v1) != fmt.Sprintf("%T", v2) {
-			return fmt.Errorf(" has different types, where in x is %T but in y is %T", v1, v2)
+			return fmt.Errorf(" have different types, where in x is %T but in y is %T", v1, v2)
 		} else if fmt.Sprintf("%v", v1) != fmt.Sprintf("%v", v2) {
 			return fmt.Errorf(" are not equal, where in x is %v but in y is %v", v1, v2)
 		}
@@ -177,7 +177,7 @@ func DeepEqualExplained(x, y interface{}) error {
 	v1 := reflect.ValueOf(x)
 	v2 := reflect.ValueOf(y)
 	if v1.Type() != v2.Type() {
-		return fmt.Errorf(" has different types, where in x is %v but in y is %v", v1.Type().Name(), v2.Type().Name())
+		return fmt.Errorf("values have different types, where in x is %v but in y is %v", v1.Type().Name(), v2.Type().Name())
 	}
 	if err := deepValueEqual(v1, v2, make(map[visit]bool), 0); err != nil {
 		return fmt.Errorf("values%s", err.Error())
